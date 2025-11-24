@@ -1,3 +1,12 @@
+console.log("UI cargada correctamente.");
+
+let tasks = [];
+let nextId = 1;
+
+const form = document.getElementById("task-form");
+const input = document.getElementById("task-input");
+const list = document.getElementById("task-list");
+
 function renderTasks() {
     list.innerHTML = "";
 
@@ -5,10 +14,12 @@ function renderTasks() {
         const li = document.createElement("li");
         li.dataset.id = task.id;
 
+        // Texto de tarea
         const span = document.createElement("span");
         span.textContent = task.text;
         li.appendChild(span);
 
+        // Botón editar
         const editButton = document.createElement("button");
         editButton.textContent = "Editar";
         editButton.addEventListener("click", () => {
@@ -26,6 +37,7 @@ function renderTasks() {
         });
         li.appendChild(editButton);
 
+        // Botón eliminar
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Eliminar";
         li.appendChild(deleteButton);
@@ -33,6 +45,26 @@ function renderTasks() {
         list.appendChild(li);
     });
 
-    
+    // 🔥 contador de tareas
     console.log("Total de tareas:", tasks.length);
 }
+
+// Evento submit
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const text = input.value.trim();
+    if (text === "") return;
+
+    const newTask = {
+        id: nextId++,
+        text: text
+    };
+
+    tasks.push(newTask);
+    input.value = "";
+    renderTasks();
+});
+
+// Render inicial
+renderTasks();
