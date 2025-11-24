@@ -68,3 +68,19 @@ form.addEventListener("submit", (event) => {
 
 // Render inicial
 renderTasks();
+
+function clearTasks() {
+  if (tasks.length === 0) {
+    alert("No hay tareas para eliminar.");
+    return;
+  }
+
+  const confirmar = confirm("¿Seguro que quieres borrar todas las tareas?");
+  if (!confirmar) return;
+
+  tasks = [];
+  nextId = 1;
+  renderTasks();
+}
+
+console.log("Función clearTasks añadida.");
